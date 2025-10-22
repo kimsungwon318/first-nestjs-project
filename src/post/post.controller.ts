@@ -6,8 +6,8 @@ import {
   Delete,
   Body,
   Param,
-  ValidationPipe,
   ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -28,14 +28,14 @@ export class PostController {
   }
 
   @Post()
-  create(@Body(ValidationPipe) createPostDto: CreatePostDto) {
+  create(@Body(new ValidationPipe()) createPostDto: CreatePostDto) {
     return this.postService.create(createPostDto);
   }
 
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) updatePostDto: UpdatePostDto,
+    @Body(new ValidationPipe()) updatePostDto: UpdatePostDto,
   ) {
     return this.postService.update(id, updatePostDto);
   }
